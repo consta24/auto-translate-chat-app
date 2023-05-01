@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, HttpStatusCode } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 
 export default function Register() {
@@ -18,10 +18,7 @@ export default function Register() {
         }
       )
       .then((res: AxiosResponse) => {
-        console.log("Register: " + res.data);
-        if (res.status === HttpStatusCode.Ok) {
-          window.location.href = "/login";
-        }
+        window.location.href = "/login";
       });
   };
 

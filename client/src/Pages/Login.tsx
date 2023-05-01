@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, HttpStatusCode } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 
 export default function Login() {
@@ -18,12 +18,10 @@ export default function Login() {
         }
       )
       .then((res: AxiosResponse) => {
-        if (res.status === HttpStatusCode.Ok) {
-          if (res.data.isAdmin) {
-            window.location.href = "/admin";
-          } else {
-            window.location.href = "/";
-          }
+        if (res.data.isAdmin) {
+          window.location.href = "/admin";
+        } else {
+          window.location.href = "/";
         }
       });
   };

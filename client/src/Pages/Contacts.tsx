@@ -23,7 +23,6 @@ export default function Contacts() {
       )
       .then((res) => {
         userCtx.updateUserContext();
-        console.log(res.data);
       });
   };
 

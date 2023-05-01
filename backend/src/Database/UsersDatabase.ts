@@ -41,7 +41,7 @@ export class UsersDatabase {
       await this.collection!.insertOne(user);
       return true;
     } catch (err) {
-      console.log("Database.insertUser(): " + err.message);
+      console.log("UsersDatabase.insertUser(): " + err.message);
       return false;
     }
   }
@@ -59,7 +59,7 @@ export class UsersDatabase {
       }
       return null;
     } catch (err) {
-      console.log("Database.findUser(): " + err.message);
+      console.log("UsersDatabase.findUser(): " + err.message);
       return null;
     }
   }
@@ -71,7 +71,7 @@ export class UsersDatabase {
         (user) => new User(user.username, user.password, user.isAdmin)
       );
     } catch (err) {
-      console.log("Database.findAllUsers(): " + err.message);
+      console.log("UsersDatabase.findAllUsers(): " + err.message);
       return [];
     }
   }
@@ -94,7 +94,7 @@ export class UsersDatabase {
         return false;
       }
     } catch (err) {
-      console.log("Database.addContactToUser(): " + err.message);
+      console.log("UsersDatabase.addContactToUser(): " + err.message);
       return false;
     }
   }
@@ -109,13 +109,13 @@ export class UsersDatabase {
       this.client = new MongoClient(this.mongoDbUri);
       await this.client.connect();
       console.log(
-        "Connected to database: " +
+        "Connected to users database: " +
           this.databaseName +
           "->" +
           this.databaseCollection
       );
     } catch (err) {
-      console.log("Database.connect(): " + err.message);
+      console.log("UsersDatabase.connect(): " + err.message);
     }
   }
 
@@ -126,7 +126,9 @@ export class UsersDatabase {
       const collectionAlreadyCreated = collections.some(
         (collection) => collection.name === this.databaseCollection
       );
-      console.log("Database already exists: " + collectionAlreadyCreated);
+      console.log(
+        "Users collection already exists: " + collectionAlreadyCreated
+      );
       if (!collectionAlreadyCreated) {
         this.collection = await this.database.createCollection<User>(
           this.databaseCollection,
@@ -141,7 +143,9 @@ export class UsersDatabase {
         );
       }
     } catch (err) {
-      console.log("Database.createDatabaseAndCollection(): " + err.message);
+      console.log(
+        "UsersDatabase.createDatabaseAndCollection(): " + err.message
+      );
     }
   }
 }

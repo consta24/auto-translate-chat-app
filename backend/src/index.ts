@@ -5,13 +5,15 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { NextFunction } from "express";
 import session from "express-session";
+import http from "http";
 import passport from "passport";
 import passportLocal from "passport-local";
-import http from "http";
 import { Server } from "socket.io";
 
 import { UsersDatabase } from "./Database/UsersDatabase";
+import { Message } from "./model/MessageModel";
 import { User } from "./model/UserModel";
+import { MessagesDatabase } from "./Database/MessagesDatabase";
 //-------------------- END OF IMPORTS --------------------\\
 
 dotenv.config();
@@ -19,8 +21,13 @@ dotenv.config();
 //-------------------- START OF DATABASE --------------------\\
 const usersDatabase = UsersDatabase.getInstance(
   process.env.MONGODB_URI!,
-  process.env.DATABASE_NAME_USERS!,
+  process.env.DATABASE_NAME!,
   process.env.DATABASE_COLLECTION_USERS!
+);
+const messagesDatabase = MessagesDatabase.getInstance(
+  process.env.MONGODB_URI!,
+  process.env.DATABASE_NAME!,
+  process.env.DATABASE_COLLECTION_MESSAGES!
 );
 //-------------------- END OF DATABASE --------------------\\
 
@@ -44,6 +51,26 @@ app.use(
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
+
+const isAdministrator = async (
+  req: Express.Request,
+  res: any,
+  next: NextFunction
+) => {
+  const { user }: any = req;
+  if (user) {
+    const userFound = await usersDatabase.findUser(user.username);
+    if (userFound !== null) {
+      if (userFound.isAdmin) {
+        next();
+      } else {
+        res.status(400).send("Only administrators can perform this");
+      }
+    }
+  } else {
+    res.status(400).send("User not logged in");
+  }
+};
 //-------------------- END OF MIDDLEWARE --------------------\\
 
 //-------------------- START OF PASSPORT --------------------\\
@@ -94,13 +121,15 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("Connected to socket: " + socket.id);
 
-  socket.on("join_room", (data) => {
+  socket.on("join_room", (data: string) => {
     socket.join(data);
     console.log(`User wih ID: ${socket.id} joined room ${data}`);
   });
 
-  socket.on("send_message", (data) => {
-    const result = socket.to(data.room).emit("receive_message", data);
+  socket.on("send_message", (data: Message) => {
+    console.log(`Received message on: ${data.room}, message: ${data.message}`);
+    messagesDatabase.insertMessage(data);
+    socket.to(data.room).emit("receive_message", data);
   });
 
   socket.on("disconnect", () => {
@@ -111,7 +140,6 @@ io.on("connection", (socket) => {
 
 //-------------------- START OF ROUTES --------------------\\
 app.post("/register", async (req, res) => {
-  console.log("Register received: " + req?.body);
   //Request verification before registering
   const { username, password } = req?.body;
   if (
@@ -161,33 +189,16 @@ app.get("/user", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
+  if (!req.user) {
+    return res.status(400).send("User not logged in");
+  }
   req.logout((err) => {
     if (err) {
       console.log(err);
     }
   });
-  res.status(200).send("Logout successfully");
+  return res.status(200).send("Logout successfully");
 });
-
-const isAdministrator = async (
-  req: Express.Request,
-  res: any,
-  next: NextFunction
-) => {
-  const { user }: any = req;
-  if (user) {
-    const userFound = await usersDatabase.findUser(user.username);
-    if (userFound !== null) {
-      if (userFound.isAdmin) {
-        next();
-      } else {
-        res.status(400).send("Only administrators can perform this");
-      }
-    }
-  } else {
-    res.status(400).send("You are not logged in");
-  }
-};
 
 app.post("/deleteuser", isAdministrator, async (req, res) => {
   if (!req.body) {
@@ -252,6 +263,26 @@ app.post("/addcontact", async (req, res) => {
     return res.status(200).send("User added to contacts");
   } else {
     return res.status(400).send("Could not add user to contacts");
+  }
+});
+
+app.get("/messages/:roomNumber", async (req, res) => {
+  if (!req.user) {
+    return res.status(400).send("User not logged in");
+  }
+
+  const roomNumber = req.params.roomNumber;
+  try {
+    const messages = await messagesDatabase.findRoom(roomNumber);
+    if (messages) {
+      return res.status(200).json(messages);
+    } else {
+      return res
+        .status(500)
+        .send("Could not find any messages for that room number");
+    }
+  } catch (err) {
+    return res.status(500).send("Internal Server Error");
   }
 });
 //-------------------- END OF ROUTES --------------------\\

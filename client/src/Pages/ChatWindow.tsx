@@ -3,6 +3,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import { socketContext, userContext } from "../Context/Context";
 import { MessageInterface } from "../Interfaces/MessageInterface";
 
+import axios, { AxiosResponse } from "axios";
 import "../Style/ChatWindow.css";
 
 type ChatWindowProps = {
@@ -45,12 +46,22 @@ export default function ChatWindow({ user }: ChatWindowProps) {
   };
 
   useEffect(() => {
+    const roomNumber = [user, userCtx.user!.username].sort().join("-");
+
+    axios
+      .get(`http://localhost:4000/messages/${roomNumber}`)
+      .then((res: AxiosResponse) => {
+        setMessageList(res.data.messages);
+      })
+      .catch((err) => {
+        setMessageList([]);
+      });
+
     if (socketCtx === null) {
       console.log("Socket missing");
       return;
     }
 
-    const roomNumber = [user, userCtx.user!.username].sort().join("-");
     socketCtx.emit("join_room", roomNumber);
     setRoomNumber(roomNumber);
 
@@ -60,7 +71,7 @@ export default function ChatWindow({ user }: ChatWindowProps) {
     return () => {
       socketCtx.off("receive_message");
     };
-  }, [socketCtx]);
+  }, [socketCtx, user, userCtx]);
 
   return (
     <div className="chat-window">
@@ -106,7 +117,7 @@ export default function ChatWindow({ user }: ChatWindowProps) {
           onChange={(e) => {
             setCurrentMessage(e.target.value);
           }}
-          onKeyPress={(e) => {
+          onKeyDown={(e) => {
             e.key === "Enter" && sendMessage();
           }}
         />
