@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.NavContainer {
+  width: 100vw;
+  height: 100px;
+  background: #1e1c1c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.NavContainer a {
+  text-decoration: none;
+  color: white;
+}
