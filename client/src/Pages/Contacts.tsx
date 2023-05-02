@@ -29,7 +29,7 @@ export default function Contacts() {
   };
 
   return (
-    <div className="contacts-chat-window">
+    <div className="contacts-chat-window fade-in">
       <div className="contacts-container">
         <h1>Contacts</h1>
         <input

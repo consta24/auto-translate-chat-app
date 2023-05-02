@@ -19,7 +19,7 @@ export default function NavBar() {
   };
 
   return (
-    <div className="NavContainer">
+    <div className="NavContainer fade-in">
       <Link to="/">Home</Link>
       {userCtx.user ? (
         <>

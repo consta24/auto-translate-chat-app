@@ -4,4 +4,19 @@
   border: 0;
   overflow: hidden;
   box-sizing: border-box;
+  background-color: #1e1c1c;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fade-in 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

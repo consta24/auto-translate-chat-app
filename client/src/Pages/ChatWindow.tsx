@@ -48,6 +48,8 @@ export default function ChatWindow({ user }: ChatWindowProps) {
   useEffect(() => {
     const roomNumber = [user, userCtx.user!.username].sort().join("-");
 
+    console.log(userCtx);
+
     axios
       .get(`http://localhost:4000/messages/${roomNumber}`)
       .then((res: AxiosResponse) => {
@@ -74,7 +76,7 @@ export default function ChatWindow({ user }: ChatWindowProps) {
   }, [socketCtx, user, userCtx]);
 
   return (
-    <div className="chat-window">
+    <div className="chat-window fade-in">
       <div className="chat-header">
         <p>Chat with {user}</p>
       </div>

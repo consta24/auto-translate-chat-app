@@ -2,7 +2,6 @@
   background: #1e1c1c;
   height: 100vh;
   width: 100%;
-  overflow: auto;
   display: flex;
 }
 
@@ -57,26 +56,23 @@
 }
 
 .contacts-container .contacts-list {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
   padding: 10px;
   margin-top: 10px;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.contacts-container .contacts-list::-webkit-scrollbar {
-  display: none;
 }
 
 .contacts-container .contacts-list ul {
-  border: 1px solid #424242;
+  height: 80vh;
+  overflow-y: scroll;
+  border: 1px solid #464242;
   border-bottom: 0px;
   border-right: 0px;
   border-left: 0px;
   list-style: none;
+}
+
+.contacts-container .contacts-list ul::-webkit-scrollbar {
+  background-color: red;
+  display: ruby-base-container;
 }
 
 .contacts-container .contacts-list button {
@@ -106,4 +102,11 @@
 
 .chat-container {
   width: 70%;
+  height: 100%;
+}
+
+.chat-container h1 {
+  border: 1px solid #464242;
+  text-align: center;
+  color: #fff;
 }
