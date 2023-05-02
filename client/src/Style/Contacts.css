@@ -1,0 +1,109 @@
+.contacts-chat-window {
+  background: #1e1c1c;
+  height: 100vh;
+  width: 100%;
+  overflow: auto;
+  display: flex;
+}
+
+.contacts-container {
+  margin-top: 5vh;
+  color: #fff;
+  background-color: #1e1c1c;
+  width: 30%;
+  border: 1px solid #464242;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+}
+
+.contacts-container h1 {
+  border: 1px solid #464242;
+  border-left: 0px;
+  border-right: 0px;
+  text-align: center;
+}
+
+.contacts-container input,
+#add-button {
+  display: inline-block;
+  align-items: center;
+}
+
+.contacts-container input {
+  color: #fff;
+  margin-top: 10%;
+  margin-left: 3%;
+  margin-right: 3%;
+  width: 60%;
+  height: 5%;
+  background-color: #464242;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#add-contact {
+  width: 30%;
+  height: 5%;
+  border-radius: 5px;
+  background-color: fff;
+  color: #1e1c1c;
+  transition: 0.3s ease-in-out;
+}
+
+#add-contact:hover {
+  background-color: #1e1c1c;
+  color: #fff;
+}
+
+.contacts-container .contacts-list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-top: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.contacts-container .contacts-list::-webkit-scrollbar {
+  display: none;
+}
+
+.contacts-container .contacts-list ul {
+  border: 1px solid #424242;
+  border-bottom: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  list-style: none;
+}
+
+.contacts-container .contacts-list button {
+  display: flex;
+  text-align: left;
+  align-items: center;
+  padding-left: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 20px;
+  border: 0;
+  background-color: #1e1c1c;
+  color: white;
+  width: 100%;
+  height: 50px;
+  transition: 0.3s ease-in-out;
+  border: 1px solid #464242;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+.contacts-container .contacts-list button:hover {
+  background-color: #fff;
+  color: #1e1c1c;
+}
+
+.chat-container {
+  width: 70%;
+}

@@ -1,0 +1,16 @@
+.NavContainer {
+  position: fixed;
+  width: 30vw;
+  height: 5vh;
+  background: #1e1c1c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-right: 20px;
+}
+
+.NavContainer a {
+  text-decoration: none;
+  color: white;
+}

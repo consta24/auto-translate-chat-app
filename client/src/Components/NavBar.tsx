@@ -3,6 +3,8 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { userContext } from "../Context/Context";
 
+import "../Style/NavBar.css";
+
 export default function NavBar() {
   const userCtx = useContext(userContext);
 

@@ -19,24 +19,26 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        {userCtx.user ? (
-          <>
-            {userCtx.user!.isAdmin ? (
-              <Route path="/admin" element={<AdminPage />} />
-            ) : null}
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/contacts" element={<Contacts />} />
-          </>
-        ) : (
-          <>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </>
-        )}
-      </Routes>
+      <div className="app-container">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          {userCtx.user ? (
+            <>
+              {userCtx.user!.isAdmin ? (
+                <Route path="/admin" element={<AdminPage />} />
+              ) : null}
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/contacts" element={<Contacts />} />
+            </>
+          ) : (
+            <>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </>
+          )}
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }
