@@ -267,8 +267,6 @@ app.post("/addcontact", async (req, res) => {
 });
 
 app.get("/messages/:roomNumber", async (req, res) => {
-  console.log(req);
-  console.log(req.user);
   if (!req.user) {
     return res.status(400).send("User not logged in");
   }

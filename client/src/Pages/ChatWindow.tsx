@@ -51,7 +51,9 @@ export default function ChatWindow({ user }: ChatWindowProps) {
     console.log(userCtx);
 
     axios
-      .get(`http://localhost:4000/messages/${roomNumber}`)
+      .get(`http://localhost:4000/messages/${roomNumber}`, {
+        withCredentials: true,
+      })
       .then((res: AxiosResponse) => {
         setMessageList(res.data.messages);
       })
