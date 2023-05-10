@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 
 import "../Style/LoginRegister.css";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
@@ -79,7 +80,7 @@ export default function Login() {
                 Login
               </button>
               <button onClick={signUp} className="button2">
-                Register
+                Create Account
               </button>
             </div>
             <button className="button3">Forgot Password</button>

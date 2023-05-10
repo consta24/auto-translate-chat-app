@@ -1,12 +1,9 @@
 import { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import NavBar from "./Components/NavBar";
-
 import { userContext } from "./Context/Context";
 
 import AdminPage from "./Pages/AdminPage";
-import Homepage from "./Pages/Homepage";
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
 import Register from "./Pages/Register";
@@ -20,19 +17,18 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
-        <NavBar />
         <Routes>
-          <Route path="/" element={<Homepage />} />
           {userCtx.user ? (
             <>
               {userCtx.user!.isAdmin ? (
                 <Route path="/admin" element={<AdminPage />} />
               ) : null}
               <Route path="/profile" element={<Profile />} />
-              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/" element={<Contacts />} />
             </>
           ) : (
             <>
+              <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </>

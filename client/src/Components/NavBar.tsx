@@ -5,7 +5,11 @@ import { userContext } from "../Context/Context";
 
 import "../Style/NavBar.css";
 
-export default function NavBar() {
+type NavBarProps = {
+  setShowProfile: (show: boolean) => void;
+};
+
+export default function NavBar({ setShowProfile }: NavBarProps) {
   const userCtx = useContext(userContext);
 
   const logout = () => {
@@ -20,26 +24,20 @@ export default function NavBar() {
 
   return (
     <div className="NavContainer fade-in">
-      <Link to="/">Home</Link>
-      {userCtx.user ? (
-        <>
-          {userCtx.user.isAdmin ? (
-            <>
-              <Link to="/admin">Admin</Link>
-            </>
-          ) : null}
-          <Link to="/contacts">Contacts</Link>
-          <Link to="/profile">Profile</Link>
-          <Link onClick={logout} to="/logout">
-            Logout
-          </Link>
-        </>
-      ) : (
-        <>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </>
-      )}
+      <h1>Contacts</h1>
+      <>
+        {userCtx.user!.isAdmin ? (
+          <>
+            <Link to="/admin">Admin</Link>
+          </>
+        ) : null}
+        <Link to={""} onClick={() => setShowProfile(true)}>
+          Profile
+        </Link>
+        <Link to="" onClick={logout}>
+          Logout
+        </Link>
+      </>
     </div>
   );
 }

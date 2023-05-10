@@ -1,9 +1,16 @@
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+
+  function handleCheckboxChange() {
+    console.log(isChecked);
+    setIsChecked(!isChecked);
+  }
 
   const register = () => {
     axios
@@ -68,6 +75,20 @@ export default function Register() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+
+            <div className="checkbox-container">
+              <label className="checkbox-label">
+                <input
+                  onChange={handleCheckboxChange}
+                  checked={isChecked}
+                  type="checkbox"
+                />
+                <div className="checkmark"></div>
+              </label>
+              <p>Accept&nbsp;</p>
+              <Link to="">Terms and Conditions.</Link>
+            </div>
+
             <div className="btn">
               <button onClick={register} className="button1">
                 Sign Up
@@ -75,11 +96,10 @@ export default function Register() {
             </div>
             <div className="account-present-already">
               <p>Already have an account?</p>
-              <button onClick={goToLogin} className="button2">
+              <Link to="/login" className="register-login">
                 Login
-              </button>
+              </Link>
             </div>
-            <button className="button3">Forgot Password</button>
           </div>
         </div>
       </div>

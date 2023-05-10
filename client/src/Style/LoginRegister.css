@@ -11,7 +11,8 @@
 
 #heading {
   text-align: center;
-  margin: 2em;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
   color: rgb(0, 255, 200);
   font-size: 1.2em;
   background-color: inherit;
@@ -30,6 +31,15 @@
   background-color: #171717;
   box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
   margin-bottom: 5px;
+  transition: 0.2s ease-in-out;
+}
+
+.field input::placeholder {
+  color: rgba(0, 250, 200, 0.3);
+}
+
+.field:hover {
+  box-shadow: inset 2px 5px 10px rgba(0, 255, 200, 0.1);
 }
 
 .input-icon {
@@ -46,10 +56,6 @@
   color: rgb(0, 255, 200);
 }
 
-.field:hover {
-  box-shadow: 0px 0px 15px 1px rgba(0, 255, 117, 0.2);
-}
-
 .form .btn {
   background-color: inherit;
   display: flex;
@@ -60,12 +66,13 @@
 
 .form .btn button {
   width: 100px;
-  text-align: center;
   height: auto;
   transition: 0.3s ease-in-out;
 }
 
 .button1 {
+  height: auto;
+  width: 40px;
   padding: 0.5em;
   padding-left: 1.1em;
   padding-right: 1.1em;
@@ -76,6 +83,7 @@
 
   background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
   color: rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 .button1:hover {
@@ -84,14 +92,15 @@
 }
 
 .button2 {
+  height: auto;
+  width: 40px;
   padding: 0.5em;
-  padding-left: 2.3em;
-  padding-right: 2.3em;
   border-radius: 5px;
   border: none;
   outline: none;
   background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
   color: rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 .button2:hover {
@@ -111,6 +120,7 @@
   width: 100%;
   margin: auto;
   margin-bottom: 2.5em;
+  cursor: pointer;
 }
 
 .button3:hover {
@@ -151,4 +161,118 @@
 .card:hover {
   box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.5);
   filter: blur(0px) brightness(0.8);
+}
+
+.account-present-already {
+  background-color: #171717;
+  padding: 10px;
+  color: rgb(0, 255, 200);
+  display: flex;
+}
+
+.account-present-already p,
+.account-present-already a {
+  white-space: nowrap;
+  text-align: center;
+  background-color: inherit;
+}
+
+.account-present-already a {
+  background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+
+  margin-left: 10px;
+  cursor: pointer;
+
+  transition: 0.2s ease-in-out;
+}
+
+.account-present-already a:hover {
+  background-image: linear-gradient(163deg, #3700ff 0%, #00ff75 100%);
+  scale: 1.1;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkbox-container {
+  background-color: inherit;
+  display: flex;
+  overflow: visible;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  font-size: 20px;
+  user-select: none;
+}
+
+.checkbox-label {
+  background-color: inherit;
+  overflow: visible;
+}
+
+.checkbox-container p {
+  margin-left: 10px;
+}
+
+.checkbox-container p,
+.checkbox-container a {
+  color: white;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.checkmark {
+  cursor: pointer;
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 1.3em;
+  width: 1.3em;
+  background: black;
+  border-radius: 50px;
+  transition: all 0.7s;
+  --spread: 20px;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .checkmark {
+  background: black;
+  box-shadow: -10px -10px var(--spread) 0px #00ff75,
+    0 -10px var(--spread) 0px #3700ff, 10px -10px var(--spread) 0px #a034df,
+    10px 0 var(--spread) 0px #00ff75, 10px 10px var(--spread) 0px #37e842,
+    0 10px var(--spread) 0px #31aece, -10px 10px var(--spread) 0px #4b27ee;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+  left: 0.45em;
+  top: 0.25em;
+  width: 0.25em;
+  height: 0.5em;
+  border: solid #f0f0f0;
+  border-width: 0 0.15em 0.15em 0;
+  transform: rotate(45deg);
 }

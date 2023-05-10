@@ -1,17 +1,27 @@
 .NavContainer {
   z-index: 10;
   position: fixed;
-  width: 30vw;
-  height: 5vh;
-  background: #1e1c1c;
+  height: 50px;
+  width: 36.5%;
+  background: transparent;
+  border-bottom: 1px solid #fff;
+  border-right: 1px solid #fff;
   color: white;
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  align-items: last baseline;
   margin-right: 20px;
 }
 
+.NavContainer h1 {
+  font-size: 35px;
+  margin-left: 10px;
+  margin-right: auto;
+}
+
 .NavContainer a {
+  font-size: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   text-decoration: none;
   color: white;
 }
